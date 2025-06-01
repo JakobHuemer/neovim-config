@@ -2,20 +2,20 @@ return {{
     "rcarriga/nvim-notify",
     enabled = true,
     opts = {
-        background_colour = "#000000",
-        stages = "fade_in_slide_out",
-        timeout = 3000,
-        minimum_width = 50,
-        max_height = 10,
-        max_width = 50,
+        stages = "static",
+        -- IMPORTANT: the icons have a special formattings with spaces
+        --              DO NOT REMOVE
         icons = {
-            ERROR = " ",
-            WARN = " ",
-            INFO = " ",
+            ERROR = " ",
+            WARN = " ",
+            INFO = " ",
             DEBUG = " ",
-            TRACE = "✎ "
+            TRACE = " ✎"
         },
-        render = "compact"
+        render = "compact",
+        -- make notification last 3 seconds
+        timeout = 5000,
+        fps = 45
     },
     config = function(_, opts)
         local notify = require("notify")
