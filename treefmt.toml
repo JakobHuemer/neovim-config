@@ -1,0 +1,6 @@
+[formatter.lua]
+command = "stylua"
+includes = [ "*.lua" ]
+excludes = []
+options = ["--indent-type", "Spaces", "--indent-width", "4"]
+priority = 0
