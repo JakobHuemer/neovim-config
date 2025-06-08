@@ -48,15 +48,15 @@ local function delete(api)
     end
 end
 
-return {{
+return { {
     "nvim-tree/nvim-tree.lua",
-    keys = {{
+    keys = { {
         "<C-h>",
         "<cmd>NvimTreeToggle<cr>",
         desc = "Toggle NvimTree",
         silent = true,
         noremap = true
-    }},
+    } },
     opts = {
         on_attach = function(bufnr)
             local function opts(desc)
@@ -81,4 +81,4 @@ return {{
             vim.keymap.set("n", "d", delete(api), opts("Delete File"))
         end
     }
-}}
+} }

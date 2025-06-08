@@ -7,7 +7,7 @@ local colors = {
     "#94e2d5", -- Teal
     "#89b4fa", -- Blue
     "#cba6f7", -- Mauve
-    "#f2cdcd" -- Flamingo
+    "#f2cdcd"  -- Flamingo
 }
 local current_scope_color = "white"
 local highlight = {}
@@ -15,7 +15,7 @@ for i = 1, #colors do
     table.insert(highlight, "indents.IndentBlanklineColor" .. i)
 end
 
-return {{
+return { {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
     opts = {
@@ -40,12 +40,11 @@ return {{
                     fg = color,
                 })
             end
+            vim.api.nvim_set_hl(0, "indents.IndentBlanklineCurrentScore", {
+                fg = current_scope_color
+            })
         end)
-
-        vim.api.nvim_set_hl(0, "indents.IndentBlanklineCurrentScore", {
-            fg = current_scope_color
-        })
 
         require("ibl").setup(opts)
     end
-}}
+} }

@@ -1,4 +1,4 @@
-return {{
+return { {
     "rcarriga/nvim-notify",
     enabled = true,
     opts = {
@@ -22,4 +22,4 @@ return {{
         notify.setup(opts)
         vim.notify = notify
     end
-}}
+} }
