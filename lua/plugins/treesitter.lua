@@ -23,7 +23,7 @@ return {
                 "swift",
                 "latex",
             },
-            auto_install = true,
+            -- auto_install = true,
             highlight = {
                 enable = true,
             },
