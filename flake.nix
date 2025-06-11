@@ -5,7 +5,8 @@
 
   # Flake inputs
   inputs = {
-    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/*";
+    flake-schemas.url =
+      "https://flakehub.com/f/DeterminateSystems/flake-schemas/*";
 
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*";
   };
@@ -15,9 +16,9 @@
     let
       # Helpers for producing system-specific outputs
       supportedSystems = [ "aarch64-darwin" ];
-      forEachSupportedSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f {
-        pkgs = import nixpkgs { inherit system; };
-      });
+      forEachSupportedSystem = f:
+        nixpkgs.lib.genAttrs supportedSystems
+        (system: f { pkgs = import nixpkgs { inherit system; }; });
     in {
       # Schemas tell Nix about the structure of your flake's outputs
       schemas = flake-schemas.schemas;
@@ -26,13 +27,7 @@
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
           # Pinned packages available in the environment
-          packages = with pkgs; [
-            curl
-            git
-            nixpkgs-fmt
-            treefmt
-            stylua
-          ];
+          packages = with pkgs; [ curl git nixpkgs-fmt treefmt stylua ];
 
           # A hook run every time you enter the environment
           shellHook = ''
