@@ -11,7 +11,7 @@ return {
 				"ts_ls",
 				-- "rnix",
 				"jdtls",
-				"rust_analyzer"
+				"rust_analyzer",
 			},
 		},
 	},
@@ -118,7 +118,17 @@ return {
 				-- virtual_lines = true,
 			})
 
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+			local _border = "rounded"
+
+			local function bordered_hover(_opts)
+				_opts = _opts or {}
+				return vim.lsp.buf.hover(vim.tbl_deep_extend("force", _opts, {
+					border = _border,
+				}))
+			end
+
+			-- vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+			vim.keymap.set("n", "K", bordered_hover, {})
 			vim.keymap.set("n", "gD", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.declaration, {})
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
