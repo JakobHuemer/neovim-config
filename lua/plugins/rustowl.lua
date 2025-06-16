@@ -2,8 +2,9 @@ return {
     {
         "cordx56/rustowl",
         version = "*", -- Latest stable version
-        -- build = 'cargo binstall rustowl',
         lazy = false, -- This plugin is already lazy
+        cond = false,
+        enabled = false,
         opts = {
             auto_attach = true, -- Auto attach the RustOwl LSP client when opening a Rust file
             auto_enable = false, -- Enable RustOwl immediately when attaching the LSP client

@@ -1,5 +1,4 @@
 return {
-
     {
         "mason-org/mason.nvim",
         opts = {},
@@ -13,6 +12,7 @@ return {
                 "ts_ls",
                 "rnix",
                 "jdtls",
+                -- "efm",
             },
         },
     },
@@ -28,10 +28,28 @@ return {
 
             lspconfig.rust_analyzer.setup({
                 capabilities = capabilities,
-                on_attach = function(_, bufnr)
-                    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-                end,
+                settings = {
+                    ["rust-analyzer"] = {
+                        cargo = {
+                            allFeatures = true,
+                        },
+                    },
+                },
             })
+            -- lspconfig.efm.setup({
+            --     capabilities = capabilities,
+            --     init_options = { documentFormatting = true },
+            --     filetypes = { "xml" },
+            --     settings = {
+            --         rootMarkers = { ".git" },
+            --         languages = {
+            --             xml = {
+            --                 formatCommand = "xmllint --format -",
+            --                 foramtStdin = true,
+            --             },
+            --         },
+            --     },
+            -- })
             lspconfig.ts_ls.setup({
                 capabilities = capabilities,
             })
@@ -52,16 +70,20 @@ return {
                         },
                         options = {
                             nixos = {
-                                expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).nixosConfigurations.someProfile.options',
+                                expr =
+                                '(builtins.getFlake ("git+file://" + toString ~/nix)).nixosConfigurations.someProfile.options',
                             },
                             darwin = {
-                                expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
+                                expr =
+                                '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
                             },
                             nix_darwin = {
-                                expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
+                                expr =
+                                '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
                             },
                             home_manager = {
-                                expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).homeConfigurations."ruixi@k-on".options',
+                                expr =
+                                '(builtins.getFlake ("git+file://" + toString ~/nix)).homeConfigurations."ruixi@k-on".options',
                             },
                         },
                     },
@@ -76,7 +98,12 @@ return {
             vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
             vim.keymap.set("n", "gD", vim.lsp.buf.definition, {})
             vim.keymap.set("n", "gd", vim.lsp.buf.declaration, {})
-            vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+            vim.keymap.set(
+                { "n", "v" },
+                "<leader>ca",
+                vim.lsp.buf.code_action,
+                {}
+            )
         end,
     },
 }

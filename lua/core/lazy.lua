@@ -49,19 +49,3 @@ require("lazy").setup({
     },
 })
 
--- Custom update check with single notification
-vim.api.nvim_create_autocmd("User", {
-    pattern = "LazyCheck",
-    callback = function()
-        local updated = require("lazy.status").has_updates()
-        if updated then
-            local updates = require("lazy.status").updates()
-            local update_key = table.concat(updates, ",")
-
-            if not notified_updates[update_key] then
-                vim.notify("Plugin updates available: " .. #updates .. " plugins", vim.log.levels.INFO)
-                notified_updates[update_key] = true
-            end
-        end
-    end,
-})
