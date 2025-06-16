@@ -10,6 +10,7 @@ return {
 				"stylua",
 				"prettierd",
 				"xmllint",
+				"alejandra",
 			},
 		},
 		config = function(_, opts)
@@ -36,6 +37,7 @@ return {
 					"prettier",
 					stop_after_first = true,
 				},
+				nix = { "alejandra" },
 			},
 			formatters = {
 				xmllint_4space = {

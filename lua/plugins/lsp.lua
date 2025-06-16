@@ -1,109 +1,127 @@
 return {
-    {
-        "mason-org/mason.nvim",
-        opts = {},
-    },
-    {
-        "mason-org/mason-lspconfig.nvim",
-        opts = {
-            ensure_installed = {
-                "lua_ls",
-                "rust_analyzer",
-                "ts_ls",
-                "rnix",
-                "jdtls",
-                -- "efm",
-            },
-        },
-    },
-    {
-        "neovim/nvim-lspconfig",
-        config = function()
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	{
+		"mason-org/mason.nvim",
+		opts = {},
+	},
+	{
+		"mason-org/mason-lspconfig.nvim",
+		opts = {
+			ensure_installed = {
+				"lua_ls",
+				"ts_ls",
+				-- "rnix",
+				"jdtls",
+				"rust_analyzer"
+			},
+		},
+	},
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {},
+		config = function()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            local lspconfig = require("lspconfig")
-            lspconfig.lua_ls.setup({
-                capabilities = capabilities,
-            })
+			capabilities.textDocument.completion.completionItem = {
+				documentationFormat = { "markdown", "plaintext" },
+				snippetSupport = true,
+				preselectSupport = true,
+				insertReplaceSupport = true,
+				labelDetailsSupport = true,
+				deprecatedSupport = true,
+				commitCharactersSupport = true,
+				tagSupport = { valueSet = { 1 } },
+				resolveSupport = {
+					properties = {
+						"documentation",
+						"detail",
+						"additionalTextEdits",
+					},
+				},
+			}
 
-            lspconfig.rust_analyzer.setup({
-                capabilities = capabilities,
-                settings = {
-                    ["rust-analyzer"] = {
-                        cargo = {
-                            allFeatures = true,
-                        },
-                    },
-                },
-            })
-            -- lspconfig.efm.setup({
-            --     capabilities = capabilities,
-            --     init_options = { documentFormatting = true },
-            --     filetypes = { "xml" },
-            --     settings = {
-            --         rootMarkers = { ".git" },
-            --         languages = {
-            --             xml = {
-            --                 formatCommand = "xmllint --format -",
-            --                 foramtStdin = true,
-            --             },
-            --         },
-            --     },
-            -- })
-            lspconfig.ts_ls.setup({
-                capabilities = capabilities,
-            })
-            lspconfig.rnix.setup({ capabilities = capabilities })
-            lspconfig.jdtls.setup({
-                capabilities = capabilities,
-            })
-            lspconfig.nixd.setup({
-                capabilities = capabilities,
-                cmd = { "nixd" },
-                settings = {
-                    nixd = {
-                        nixpkgs = {
-                            expr = "import <nixpkgs> { }",
-                        },
-                        formatting = {
-                            command = { "nixfmt" },
-                        },
-                        options = {
-                            nixos = {
-                                expr =
-                                '(builtins.getFlake ("git+file://" + toString ~/nix)).nixosConfigurations.someProfile.options',
-                            },
-                            darwin = {
-                                expr =
-                                '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
-                            },
-                            nix_darwin = {
-                                expr =
-                                '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
-                            },
-                            home_manager = {
-                                expr =
-                                '(builtins.getFlake ("git+file://" + toString ~/nix)).homeConfigurations."ruixi@k-on".options',
-                            },
-                        },
-                    },
-                },
-            })
+			vim.lsp.set_log_level("debug")
 
-            vim.diagnostic.enable = true
-            vim.diagnostic.config({
-                virtual_text = true,
-            })
+			local lspconfig = require("lspconfig")
 
-            vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-            vim.keymap.set("n", "gD", vim.lsp.buf.definition, {})
-            vim.keymap.set("n", "gd", vim.lsp.buf.declaration, {})
-            vim.keymap.set(
-                { "n", "v" },
-                "<leader>ca",
-                vim.lsp.buf.code_action,
-                {}
-            )
-        end,
-    },
+			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
+			})
+
+			-- config happens in rustacean.nvim
+			lspconfig.rust_analyzer.setup({
+				capabilities = capabilities,
+				settings = {
+					["rust-analyzer"] = {
+						cargo = {
+							allFeatures = true,
+						},
+						checkOnSave = true,
+						-- performance is heavily influenced by inlayHints
+						-- inlayHints = {
+						-- 	enable = true,
+						-- 	-- typeHints = true,
+						-- 	-- parameterHints = true,
+						-- },
+					},
+				},
+			})
+			lspconfig.ts_ls.setup({
+				capabilities = capabilities,
+			})
+			-- lspconfig.rnix.setup({ capabilities = capabilities })
+			lspconfig.jdtls.setup({
+				capabilities = capabilities,
+			})
+			lspconfig.nixd.setup({
+				capabilities = capabilities,
+				cmd = { "nixd" },
+				flags = {
+					inlayHints = true,
+				},
+				settings = {
+					nixd = {
+						autowatch = true,
+						nixpkgs = {
+							expr = "import <nixpkgs> { }",
+						},
+						formatting = {
+							command = { "alejandra" },
+						},
+						options = {
+							nixos = {
+								expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).nixosConfigurations.someProfile.options',
+							},
+							darwin = {
+								expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
+							},
+							nix_darwin = {
+								expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
+							},
+							home_manager = {
+								expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).homeConfigurations.mbp2p.options',
+							},
+							flake_parts = {
+								expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).debug.options',
+							},
+						},
+					},
+				},
+			})
+
+			-- enable inlay inlay
+			vim.lsp.inlay_hint.enable(true, { 0 })
+			vim.diagnostic.enable = true
+
+			-- just a single one or else duplicated warnings
+			vim.diagnostic.config({
+				virtual_text = true,
+				-- virtual_lines = true,
+			})
+
+			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
+			vim.keymap.set("n", "gD", vim.lsp.buf.definition, {})
+			vim.keymap.set("n", "gd", vim.lsp.buf.declaration, {})
+			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+		end,
+	},
 }
