@@ -48,4 +48,3 @@ require("lazy").setup({
         frequency = 1800,
     },
 })
-

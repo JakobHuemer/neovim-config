@@ -1,46 +1,46 @@
 return {
-	-- {
-	-- 	"jay-babu/mason-null-ls.nvim",
-	-- 	enabled = false,
-	-- 	dependencies = {
-	-- 		"mason-org/mason.nvim",
-	-- 		"nvimtools/none-ls.nvim",
-	-- 	},
-	-- 	opts = {
-	-- 		ensure_installed = {
-	-- 			"stylua",
-	-- 			"ast_grep",
-	-- 		},
-	-- 	},
-	-- 	config = function(_, opts)
-	-- 		require("mason-null-ls").setup(opts)
-	-- 	end,
-	-- },
-	-- {
-	-- 	"nvimtools/none-ls.nvim",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 	},
-	-- 	enabled = false,
-	-- 	opts = {},
-	-- 	config = function()
-	-- 		local null_ls = require("null-ls")
-	-- 		null_ls.setup({
-	-- 			sources = {
-	-- 				null_ls.builtins.formatting.stylua.with({
-	-- 					extra_args = {
-	-- 						"--indent-width",
-	-- 						"4",
-	-- 						"--column-width",
-	-- 						"80",
-	-- 						"--indent-type",
-	-- 						"Spaces",
-	-- 					},
-	-- 				}),
-	-- 			},
-	-- 		})
-	--
-	-- 		-- vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
-	-- 	end,
-	-- },
+    -- {
+    -- 	"jay-babu/mason-null-ls.nvim",
+    -- 	enabled = false,
+    -- 	dependencies = {
+    -- 		"mason-org/mason.nvim",
+    -- 		"nvimtools/none-ls.nvim",
+    -- 	},
+    -- 	opts = {
+    -- 		ensure_installed = {
+    -- 			"stylua",
+    -- 			"ast_grep",
+    -- 		},
+    -- 	},
+    -- 	config = function(_, opts)
+    -- 		require("mason-null-ls").setup(opts)
+    -- 	end,
+    -- },
+    -- {
+    -- 	"nvimtools/none-ls.nvim",
+    -- 	dependencies = {
+    -- 		"nvim-lua/plenary.nvim",
+    -- 	},
+    -- 	enabled = false,
+    -- 	opts = {},
+    -- 	config = function()
+    -- 		local null_ls = require("null-ls")
+    -- 		null_ls.setup({
+    -- 			sources = {
+    -- 				null_ls.builtins.formatting.stylua.with({
+    -- 					extra_args = {
+    -- 						"--indent-width",
+    -- 						"4",
+    -- 						"--column-width",
+    -- 						"80",
+    -- 						"--indent-type",
+    -- 						"Spaces",
+    -- 					},
+    -- 				}),
+    -- 			},
+    -- 		})
+    --
+    -- 		-- vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+    -- 	end,
+    -- },
 }
