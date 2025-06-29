@@ -9,10 +9,10 @@ return {
             ensure_installed = {
                 "stylua",
                 "prettierd",
+                "prettier",
                 "xmllint",
                 "alejandra",
                 "clang-format",
-                "checkmake",
             },
         },
         config = function(_, opts)
@@ -46,8 +46,6 @@ return {
                 -- setup c/c++ formatters
                 c = { "clang-format" },
                 cpp = { "clang-format" },
-                -- makefile
-                make = { "checkmake" },
             },
             formatters = {
                 xmllint_4space = {
