@@ -3,9 +3,14 @@ return {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.8",
         dependencies = { "nvim-lua/plenary.nvim" },
-        opts = {},
-        config = function(_, opts)
-            require("telescope").setup(opts)
+        config = function()
+            require("telescope").setup({
+                defaults = {
+                    file_ignore_patterns = {
+                        "node_modules",
+                    },
+                },
+            })
             local builtin = require("telescope.builtin")
             vim.keymap.set("n", "<C-p>", builtin.find_files, {
                 desc = "Telescope find files",
