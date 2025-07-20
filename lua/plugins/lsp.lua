@@ -17,6 +17,10 @@ return {
                 -- "buf_ls",
                 "protols",
                 "mesonlsp",
+
+                -- webdev
+                "vuels",
+                "emmet_language_server",
             },
             automatic_enable = false,
         },
@@ -101,6 +105,12 @@ return {
                         },
                     },
                 },
+            })
+            lspconfig.vuels.setup({
+                capabilities = capabilities,
+            })
+            lspconfig.emmet_language_server.setup({
+                capabilities = capabilities,
             })
             lspconfig.nixd.setup({
                 capabilities = capabilities,

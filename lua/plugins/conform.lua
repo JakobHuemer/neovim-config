@@ -13,6 +13,7 @@ return {
                 "xmllint",
                 "alejandra",
                 "clang-format",
+                "rustywind",
             },
         },
         config = function(_, opts)
