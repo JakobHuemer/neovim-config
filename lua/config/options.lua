@@ -15,4 +15,3 @@ vim.cmd([[set expandtab]])
 
 -- make statusline global
 vim.cmd([[set laststatus=3]])
-

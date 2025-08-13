@@ -7,20 +7,20 @@ return {
         "mason-org/mason-lspconfig.nvim",
         opts = {
             ensure_installed = {
-                "lua_ls",
-                "ts_ls",
-                "jdtls",
-                "rust_analyzer",
-
-                -- c...
-                "clangd",
-                -- "buf_ls",
-                "protols",
-                "mesonlsp",
+                -- "lua_ls",
+                -- "ts_ls",
+                -- "jdtls",
+                -- "rust_analyzer",
+                --
+                -- -- c...
+                -- "clangd",
+                -- -- "buf_ls",
+                -- "protols",
+                -- "mesonlsp",
 
                 -- webdev
-                "vuels",
-                "emmet_language_server",
+                -- "vuels",
+                -- "emmet_language_server",
             },
             automatic_enable = false,
         },

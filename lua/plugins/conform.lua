@@ -1,25 +1,24 @@
 return {
-    {
-        "jay-babu/mason-null-ls.nvim",
-        dependencies = {
-            "mason-org/mason.nvim",
-            "nvimtools/none-ls.nvim",
-        },
-        opts = {
-            ensure_installed = {
-                "stylua",
-                "prettierd",
-                "prettier",
-                "xmllint",
-                "alejandra",
-                "clang-format",
-                "rustywind",
-            },
-        },
-        config = function(_, opts)
-            require("mason-null-ls").setup(opts)
-        end,
-    },
+    -- {
+    --     "jay-babu/mason-null-ls.nvim",
+    --     dependencies = {
+    --         -- "mason-org/mason.nvim",
+    --         "nvimtools/none-ls.nvim",
+    --     },
+    --     opts = {
+    --         ensure_installed = {
+    --             "stylua",
+    --             "prettierd",
+    --             "prettier",
+    --             "xmllint",
+    --             "alejandra",
+    --             "clang-format",
+    --         },
+    --     },
+    --     config = function(_, opts)
+    --         require("mason-null-ls").setup(opts)
+    --     end,
+    -- },
     {
         "stevearc/conform.nvim",
         event = { "BufReadPre", "BufNewFile" },
@@ -66,8 +65,6 @@ return {
                         "4",
                         "--search-parent-directories",
                         "--respect-ignores",
-                        "--stdin-filepath",
-                        "/Users/jakki/.config/nvim/lua/plugins/conform.lua",
                         "-",
                     },
                 },
