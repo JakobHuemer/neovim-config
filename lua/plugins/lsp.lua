@@ -82,6 +82,7 @@ return {
             -- c....
             lspconfig.clangd.setup({
                 capabilities = capabilities,
+                cmd = { "clangd", "--compile-commands-dir=build" },
             })
             lspconfig.protols.setup({
                 capabilities = capabilities,
