@@ -52,13 +52,11 @@ return {
 
             -- vim.lsp.set_log_level("debug")
 
-            local lspconfig = require("lspconfig")
-
-            lspconfig.lua_ls.setup({
+            vim.lsp.config["lua_ls"] = {
                 capabilities = capabilities,
-            })
+            }
 
-            lspconfig.rust_analyzer.setup({
+            vim.lsp.config["rust_analyzer"] = {
                 capabilities = capabilities,
                 settings = {
                     ["rust-analyzer"] = {
@@ -74,46 +72,34 @@ return {
                         -- },
                     },
                 },
-            })
-            lspconfig.ts_ls.setup({
+            }
+
+            vim.lsp.config["ts_ls"] = {
                 capabilities = capabilities,
-            })
+            }
 
             -- c....
-            lspconfig.clangd.setup({
+
+            vim.lsp.config["clangd"] = {
                 capabilities = capabilities,
                 cmd = { "clangd", "--compile-commands-dir=build" },
-            })
-            lspconfig.protols.setup({
-                capabilities = capabilities,
-            })
-            lspconfig.mesonlsp.setup({
-                capabilities = capabilities,
-            })
+            }
 
-            lspconfig.jdtls.setup({
+            vim.lsp.config["protols"] = {
                 capabilities = capabilities,
-                settings = {
-                    java = {
-                        configuration = {
-                            runtimes = {
-                                -- {
-                                -- 	name = "JavaSE-21",
-                                -- 	path = "/opt/jdk-21",
-                                -- 	default = true,
-                                -- },
-                            },
-                        },
-                    },
-                },
-            })
-            lspconfig.vuels.setup({
+            }
+
+            vim.lsp.config["mesonlsp"] = {
                 capabilities = capabilities,
-            })
-            lspconfig.emmet_language_server.setup({
+            }
+
+            vim.lsp.config["vuel"] = {
                 capabilities = capabilities,
-            })
-            lspconfig.nixd.setup({
+            }
+            vim.lsp.config["emmet_language_server"] = {
+                capabilities = capabilities,
+            }
+            vim.lsp.config["nixd"] = {
                 capabilities = capabilities,
                 cmd = { "nixd" },
                 flags = {
@@ -147,7 +133,7 @@ return {
                         },
                     },
                 },
-            })
+            }
 
             -- enable inlay inlay
             vim.lsp.inlay_hint.enable(true, { 0 })
