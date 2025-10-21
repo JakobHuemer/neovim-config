@@ -4,6 +4,7 @@ return {
         cmd = "Copilot",
         lazy = true,
         event = "InsertEnter",
+        enabled = false,
         dependencies = {
             "AndreM222/copilot-lualine",
         },
