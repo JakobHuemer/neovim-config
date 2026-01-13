@@ -4,6 +4,7 @@ return {
         opts = {
             max_lines = 2048,
             standard_widths = { 2, 4 },
+            skip_multiline_commments = true,
 
             filetype_nix = {
                 stanard_widths = { 2 },

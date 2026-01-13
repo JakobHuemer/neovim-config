@@ -1,36 +1,100 @@
 return {
-    {
-        "mason-org/mason.nvim",
-        opts = {},
-    },
-    {
-        "mason-org/mason-lspconfig.nvim",
-        opts = {
-            ensure_installed = {
-                -- "lua_ls",
-                -- "ts_ls",
-                -- "jdtls",
-                -- "rust_analyzer",
-                --
-                -- -- c...
-                -- "clangd",
-                -- -- "buf_ls",
-                -- "protols",
-                -- "mesonlsp",
-
-                -- webdev
-                -- "vuels",
-                -- "emmet_language_server",
-            },
-            automatic_enable = false,
-        },
-    },
+    -- {
+    --     "mason-org/mason.nvim",
+    --     opts = {},
+    -- },
+    -- {
+    --     "mason-org/mason-lspconfig.nvim",
+    --     opts = {
+    --         ensure_installed = {
+    --             -- "lua_ls",
+    --             -- "ts_ls",
+    --             -- "jdtls",
+    --             -- "rust_analyzer",
+    --             --
+    --             -- -- c...
+    --             -- "clangd",
+    --             -- -- "buf_ls",
+    --             -- "protols",
+    --             -- "mesonlsp",
+    --
+    --             -- webdev
+    --             -- "vuels",
+    --             -- "emmet_language_server",
+    --         },
+    --         automatic_enable = false,
+    --     },
+    -- },
     {
         "neovim/nvim-lspconfig",
         dependencies = { "echasnovski/mini.completion" },
-        config = function()
-            -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
+        opts = {
+            servers = {
+                lua_ls = {},
+                rust_analyzer = {
+                    settings = {
+                        ["rust-analyzer"] = {
+                            cargo = {
+                                allFeatures = true,
+                            },
+                            checkOnSave = true,
+                            inlayHints = {
+                                enable = true,
+                                typeHints = true,
+                                parameterHints = true,
+                            },
+                        },
+                    },
+                },
+                ts_ls = {},
+                clangd = {
+                    cmd = { "clangd", "--compile-commands-dir=build" },
+                },
+                protols = {},
+                mesonlsp = {},
+                vuels = {},
+                emmet_language_server = {},
+                nixd = {
+                    cmd = { "nixd" },
+                    flags = {
+                        inlayHints = true,
+                    },
+                    settings = {
+                        nixd = {
+                            autowatch = true,
+                            nixpkgs = {
+                                expr = "import <nixpkgs> { }",
+                            },
+                            formatting = {
+                                command = { "alejandra" },
+                            },
+                            options = {
+                                nixos = {
+                                    expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).nixosConfigurations.someProfile.options',
+                                },
+                                darwin = {
+                                    expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
+                                },
+                                nix_darwin = {
+                                    expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
+                                },
+                                home_manager = {
+                                    expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).homeConfigurations.mbp2p.options',
+                                },
+                                flake_parts = {
+                                    expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).debug.options',
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+            diagnostics = {
+                virtual_text = true,
+            },
+            inlay_hints = true,
+        },
+        config = function(_, opts)
             local capabilities = require("mini.completion").get_lsp_capabilities()
             capabilities.textDocument.completion.completionItem = {
                 documentationFormat = { "markdown", "plaintext" },
@@ -50,103 +114,21 @@ return {
                 },
             }
 
-            -- vim.lsp.set_log_level("debug")
+            for server, server_opts in pairs(opts.servers or {}) do
+                local merged_opts = vim.tbl_deep_extend("force", { capabilities = capabilities }, server_opts)
+                vim.lsp.config(server, merged_opts)
+                vim.lsp.enable(server)
+            end
 
-            vim.lsp.config["lua_ls"] = {
-                capabilities = capabilities,
-            }
+            if opts.inlay_hints and vim.lsp.inlay_hint then
+                vim.lsp.inlay_hint.enable(true, { 0 })
+            end
 
-            vim.lsp.config["rust_analyzer"] = {
-                capabilities = capabilities,
-                settings = {
-                    ["rust-analyzer"] = {
-                        cargo = {
-                            allFeatures = true,
-                        },
-                        checkOnSave = true,
-                        -- performance is heavily influenced by inlayHints
-                        -- inlayHints = {
-                        -- 	enable = true,
-                        -- 	-- typeHints = true,
-                        -- 	-- parameterHints = true,
-                        -- },
-                    },
-                },
-            }
-
-            vim.lsp.config["ts_ls"] = {
-                capabilities = capabilities,
-            }
-
-            -- c....
-
-            vim.lsp.config["clangd"] = {
-                capabilities = capabilities,
-                cmd = { "clangd", "--compile-commands-dir=build" },
-            }
-
-            vim.lsp.config["protols"] = {
-                capabilities = capabilities,
-            }
-
-            vim.lsp.config["mesonlsp"] = {
-                capabilities = capabilities,
-            }
-
-            vim.lsp.config["vuel"] = {
-                capabilities = capabilities,
-            }
-            vim.lsp.config["emmet_language_server"] = {
-                capabilities = capabilities,
-            }
-            vim.lsp.config["nixd"] = {
-                capabilities = capabilities,
-                cmd = { "nixd" },
-                flags = {
-                    inlayHints = true,
-                },
-                settings = {
-                    nixd = {
-                        autowatch = true,
-                        nixpkgs = {
-                            expr = "import <nixpkgs> { }",
-                        },
-                        formatting = {
-                            command = { "alejandra" },
-                        },
-                        options = {
-                            nixos = {
-                                expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).nixosConfigurations.someProfile.options',
-                            },
-                            darwin = {
-                                expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
-                            },
-                            nix_darwin = {
-                                expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).darwinConfigurations.mbp2p.options',
-                            },
-                            home_manager = {
-                                expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).homeConfigurations.mbp2p.options',
-                            },
-                            flake_parts = {
-                                expr = '(builtins.getFlake ("git+file://" + toString ~/nix)).debug.options',
-                            },
-                        },
-                    },
-                },
-            }
-
-            -- enable inlay inlay
-            vim.lsp.inlay_hint.enable(true, { 0 })
-            vim.diagnostic.enable = true
-
-            -- just a single one or else duplicated warnings
-            vim.diagnostic.config({
-                virtual_text = true,
-                -- virtual_lines = true,
-            })
+            if opts.diagnostics then
+                vim.diagnostic.config(opts.diagnostics)
+            end
 
             local _border = "rounded"
-
             local function bordered_hover(_opts)
                 _opts = _opts or {}
                 return vim.lsp.buf.hover(vim.tbl_deep_extend("force", _opts, {
@@ -154,7 +136,6 @@ return {
                 }))
             end
 
-            -- vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
             vim.keymap.set("n", "K", bordered_hover, {})
             vim.keymap.set("n", "gD", vim.lsp.buf.definition, {})
             vim.keymap.set("n", "gd", vim.lsp.buf.declaration, {})
