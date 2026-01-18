@@ -31,6 +31,7 @@ return {
         opts = {
             servers = {
                 lua_ls = {},
+                ast_grep = {},
                 rust_analyzer = {
                     settings = {
                         ["rust-analyzer"] = {
@@ -47,9 +48,6 @@ return {
                     },
                 },
                 ts_ls = {},
-                clangd = {
-                    cmd = { "clangd", "--compile-commands-dir=build" },
-                },
                 protols = {},
                 mesonlsp = {},
                 vuels = {},

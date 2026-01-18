@@ -48,6 +48,9 @@ return {
                 cpp = { "clang-format" },
             },
             formatters = {
+                ["clang-format"] = {
+                    prepend_args = { "--style={BasedOnStyle: LLVM, IndentWidth: 4}" },
+                },
                 xmllint_4space = {
                     command = "sh",
                     args = {
