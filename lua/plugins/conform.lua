@@ -28,7 +28,7 @@ return {
         opts = {
             log_level = vim.log.levels.DEBUG,
             formatters_by_ft = {
-                xml = { "xmllint_4space" },
+                xml = { "xmlformat_4space" },
                 -- lua = { "stylua" },
                 -- add these options: ["--indent-type", "Spaces", "--indent-width", "4"]
                 lua = { "stylua_4spaces" },
@@ -51,11 +51,11 @@ return {
                 ["clang-format"] = {
                     prepend_args = { "--style={BasedOnStyle: LLVM, IndentWidth: 4}" },
                 },
-                xmllint_4space = {
-                    command = "sh",
+                xmlformat_4space = {
+                    command = "xmlformat",
                     args = {
-                        "-c",
-                        "XMLLINT_INDENT='    ' xmllint --format -",
+                        "-i",
+                        "4",
                     },
                     stdin = true,
                 },

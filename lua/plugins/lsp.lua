@@ -52,6 +52,7 @@ return {
                 mesonlsp = {},
                 vuels = {},
                 emmet_language_server = {},
+                gopls = {},
                 nixd = {
                     cmd = { "nixd" },
                     flags = {
