@@ -37,6 +37,7 @@ return {
                         ["rust-analyzer"] = {
                             cargo = {
                                 allFeatures = true,
+                                targetDir = true,
                             },
                             checkOnSave = true,
                             inlayHints = {
