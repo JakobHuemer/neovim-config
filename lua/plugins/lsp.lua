@@ -51,7 +51,57 @@ return {
                 ts_ls = {},
                 protols = {},
                 mesonlsp = {},
-                vuels = {},
+                ts_ls = {
+                    cmd = { "typescript-language-server", "--stdio" },
+                    settings = {
+                        exclude = {
+                            "node_modules",
+                        },
+                    },
+                },
+                vue_ls = {
+                    cmd = { "vue-language-server", "--stdio" },
+                    filetypes = { "vue" },
+                    settings = {
+                        config = {
+                            css = {},
+                            emmet = {},
+                            html = {
+                                suggest = {},
+                            },
+                            javascript = {
+                                format = {},
+                                jamoin = 34,
+                            },
+                            stylusSupremacy = {},
+                            typescript = {
+                                format = {},
+                            },
+                            vetur = {
+                                completion = {
+                                    autoImport = false,
+                                    tagCasing = "kebab",
+                                    useScaffoldSnippets = false,
+                                },
+                                format = {
+                                    defaultFormatter = {
+                                        js = "none",
+                                        ts = "none",
+                                    },
+                                    defaultFormatterOptions = {},
+                                    scriptInitialIndent = false,
+                                    styleInitialIndent = false,
+                                },
+                                useWorkspaceDependencies = false,
+                                validation = {
+                                    script = true,
+                                    style = true,
+                                    template = true,
+                                },
+                            },
+                        },
+                    },
+                },
                 emmet_language_server = {},
                 gopls = {},
                 nixd = {

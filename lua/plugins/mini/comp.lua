@@ -1,59 +1,59 @@
 return {
-    {
-        "echasnovski/mini.snippets",
-        version = "*",
-        opts = {
-            mappings = {
-                -- doesn't seem to change anything
-                -- only keymap in config works
-                expand = "<C-s>",
-
-                jump_next = "<C-g>",
-                jump_prev = "<C-b>",
-                stop = "<C-c>",
-            },
-
-            expand = {
-                prepate = nil,
-                match = nil,
-                select = nil,
-                insert = nil,
-            },
-        },
-
-        config = function(_, opts)
-            local snippets = require("mini.snippets")
-            snippets.setup(opts)
-
-            vim.keymap.set({ "i", "n" }, "<C-s>", function()
-                snippets.session.get()
-            end, { desc = "Expand Snippet" })
-
-            vim.keymap.set("i", "<C-g>", function()
-                snippets.session.jump("next")
-            end, { desc = "Jump to Next Snippet" })
-
-            vim.keymap.set({ "i" }, "<C-b>", function()
-                snippets.session.jump("prev")
-            end, { desc = "Jump to Previous Snippet" })
-
-            vim.keymap.set({ "i", "n" }, "<C-c>", function()
-                snippets.session.stop()
-            end, { desc = "Stop Snippet" })
-        end,
-    },
+    -- {
+    --     "echasnovski/mini.snippets",
+    --     version = "*",
+    --     opts = {
+    --         mappings = {
+    --             -- doesn't seem to change anything
+    --             -- only keymap in config works
+    --             expand = "<C-s>",
+    --
+    --             jump_next = "<C-g>",
+    --             jump_prev = "<C-b>",
+    --             stop = "<C-c>",
+    --         },
+    --
+    --         expand = {
+    --             prepate = nil,
+    --             match = nil,
+    --             select = nil,
+    --             insert = nil,
+    --         },
+    --     },
+    --
+    --     config = function(_, opts)
+    --         local snippets = require("mini.snippets")
+    --         snippets.setup(opts)
+    --
+    --         vim.keymap.set({ "i", "n" }, "<C-s>", function()
+    --             snippets.session.get()
+    --         end, { desc = "Expand Snippet" })
+    --
+    --         vim.keymap.set("i", "<C-g>", function()
+    --             snippets.session.jump("next")
+    --         end, { desc = "Jump to Next Snippet" })
+    --
+    --         vim.keymap.set({ "i" }, "<C-b>", function()
+    --             snippets.session.jump("prev")
+    --         end, { desc = "Jump to Previous Snippet" })
+    --
+    --         vim.keymap.set({ "i", "n" }, "<C-c>", function()
+    --             snippets.session.stop()
+    --         end, { desc = "Stop Snippet" })
+    --     end,
+    -- },
     {
         "echasnovski/mini.completion",
         version = "*",
         dependencies = {
             { "echasnovski/mini.icons", version = "*" },
-            "echasnovski/mini.snippets",
-            "rafamadriz/friendly-snippets",
-            {
-                "L3MON4D3/LuaSnip",
-                dependencies = { "rafamadriz/friendly-snippets" },
-                build = "make install_jsregexp",
-            },
+            -- "echasnovski/mini.snippets",
+            -- "rafamadriz/friendly-snippets",
+            -- {
+            --     "L3MON4D3/LuaSnip",
+            --     dependencies = { "rafamadriz/friendly-snippets" },
+            --     build = "make install_jsregexp",
+            -- },
         },
 
         opts = {
@@ -88,7 +88,7 @@ return {
                 -- A function which takes a snippet as string and inserts it at cursor.
                 -- Default: `default_snippet_insert` which tries to use 'mini.snippets'
                 -- and falls back to `vim.snippet.expand` (on Neovim>=0.10).
-                snippet_insert = nil,
+                -- snippet_insert = nil,
             },
 
             -- Fallback action as function/string. Executed in Insert mode.
@@ -113,11 +113,11 @@ return {
 
         config = function(_, opts)
             local comp = require("mini.completion")
-            local snippets = require("mini.snippets")
+            -- local snippets = require("mini.snippets")
 
-            require("luasnip.loaders.from_vscode").lazy_load()
+            -- require("luasnip.loaders.from_vscode").lazy_load()
 
-            local gen_loader = snippets.gen_loader
+            -- local gen_loader = snippets.gen_loader
 
             local kind_priority = { Text = -1, Snippet = 99 }
             local filter_opts = { filtersort = "fuzzy", kind_priority = kind_priority }
@@ -126,11 +126,11 @@ return {
                 return comp.default_process_items(items, base, filter_opts)
             end
 
-            snippets.setup({
-                snippets = {
-                    gen_loader.from_lang(),
-                },
-            })
+            -- snippets.setup({
+            --     snippets = {
+            --         gen_loader.from_lang(),
+            --     },
+            -- })
 
             opts.lsp_completion = {
                 process_items = process_items,
