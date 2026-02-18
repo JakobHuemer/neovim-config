@@ -27,7 +27,7 @@ return {
     -- },
     {
         "neovim/nvim-lspconfig",
-        dependencies = { "echasnovski/mini.completion" },
+        dependencies = { "saghen/blink.cmp" },
         opts = {
             servers = {
                 lua_ls = {},
@@ -145,24 +145,35 @@ return {
             inlay_hints = true,
         },
         config = function(_, opts)
-            local capabilities = require("mini.completion").get_lsp_capabilities()
-            capabilities.textDocument.completion.completionItem = {
-                documentationFormat = { "markdown", "plaintext" },
-                snippetSupport = true,
-                preselectSupport = true,
-                insertReplaceSupport = true,
-                labelDetailsSupport = true,
-                deprecatedSupport = true,
-                commitCharactersSupport = true,
-                tagSupport = { valueSet = { 1 } },
-                resolveSupport = {
-                    properties = {
-                        "documentation",
-                        "detail",
-                        "additionalTextEdits",
+            local capabilities = {
+                textDocument = {
+                    foldingRange = {
+                        dynamicRegistration = false,
+                        lineFoldingOnly = true,
+                    },
+                    completion = {
+                        completionItem = {
+                            documentationFormat = { "markdown", "plaintext" },
+                            snippetSupport = true,
+                            preselectSupport = true,
+                            insertReplaceSupport = true,
+                            labelDetailsSupport = true,
+                            deprecatedSupport = true,
+                            commitCharactersSupport = true,
+                            tagSupport = { valueSet = { 1 } },
+                            resolveSupport = {
+                                properties = {
+                                    "documentation",
+                                    "detail",
+                                    "additionalTextEdits",
+                                },
+                            },
+                        },
                     },
                 },
             }
+
+            capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
             for server, server_opts in pairs(opts.servers or {}) do
                 local merged_opts = vim.tbl_deep_extend("force", { capabilities = capabilities }, server_opts)
