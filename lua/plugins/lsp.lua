@@ -48,11 +48,41 @@ return {
                         },
                     },
                 },
-                ts_ls = {},
                 protols = {},
                 mesonlsp = {},
                 ts_ls = {
                     cmd = { "typescript-language-server", "--stdio" },
+                    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+                    init_options = {
+                        plugins = {
+                            {
+                                name = "@vue/typescript-plugin",
+                                location = (function()
+                                    local vue_ls_path = vim.fn.exepath("vue-language-server")
+                                    if vue_ls_path ~= "" then
+                                        local resolved_path = vim.fn.resolve(vue_ls_path)
+                                        local bin_dir = vim.fn.fnamemodify(resolved_path, ":h")
+                                        local store_dir = vim.fn.fnamemodify(bin_dir, ":h")
+
+                                        local paths = {
+                                            -- Nixpkgs standard paths for @vue/typescript-plugin
+                                            store_dir .. "/lib/language-tools/node_modules/.pnpm/node_modules",
+                                            store_dir .. "/lib/node_modules/@vue/language-server/node_modules",
+                                            store_dir .. "/lib/node_modules",
+                                        }
+
+                                        for _, p in ipairs(paths) do
+                                            if vim.fn.isdirectory(p) == 1 then
+                                                return p
+                                            end
+                                        end
+                                    end
+                                    return ""
+                                end)(),
+                                languages = { "vue" },
+                            },
+                        },
+                    },
                     settings = {
                         exclude = {
                             "node_modules",
@@ -60,47 +90,7 @@ return {
                     },
                 },
                 vue_ls = {
-                    cmd = { "vue-language-server", "--stdio" },
                     filetypes = { "vue" },
-                    settings = {
-                        config = {
-                            css = {},
-                            emmet = {},
-                            html = {
-                                suggest = {},
-                            },
-                            javascript = {
-                                format = {},
-                                jamoin = 34,
-                            },
-                            stylusSupremacy = {},
-                            typescript = {
-                                format = {},
-                            },
-                            vetur = {
-                                completion = {
-                                    autoImport = false,
-                                    tagCasing = "kebab",
-                                    useScaffoldSnippets = false,
-                                },
-                                format = {
-                                    defaultFormatter = {
-                                        js = "none",
-                                        ts = "none",
-                                    },
-                                    defaultFormatterOptions = {},
-                                    scriptInitialIndent = false,
-                                    styleInitialIndent = false,
-                                },
-                                useWorkspaceDependencies = false,
-                                validation = {
-                                    script = true,
-                                    style = true,
-                                    template = true,
-                                },
-                            },
-                        },
-                    },
                 },
                 emmet_language_server = {},
                 gopls = {},
