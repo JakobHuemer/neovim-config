@@ -1,6 +1,8 @@
 {
+  "99": { "branch": "master", "commit": "82e5573f753793e89ab614429e3a390c808b1048" },
   "alpha-nvim": { "branch": "main", "commit": "a9d8fb72213c8b461e791409e7feabb74eb6ce73" },
   "blink.cmp": { "branch": "main", "commit": "4b18c32adef2898f95cdef6192cbd5796c1a332d" },
+  "blink.compat": { "branch": "main", "commit": "2ed6d9a28b07fa6f3bface818470605f8896408c" },
   "catppuccin": { "branch": "main", "commit": "0a5de4da015a175f416d6ef1eda84661623e0500" },
   "conform.nvim": { "branch": "master", "commit": "c2526f1cde528a66e086ab1668e996d162c75f4f" },
   "diagram.nvim": { "branch": "master", "commit": "6c25f65f0a83c7ee50d93e3789f7d012a0d91021" },
