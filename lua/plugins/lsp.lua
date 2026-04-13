@@ -179,15 +179,9 @@ return {
                 vim.diagnostic.config(opts.diagnostics)
             end
 
-            local _border = "rounded"
-            local function bordered_hover(_opts)
-                _opts = _opts or {}
-                return vim.lsp.buf.hover(vim.tbl_deep_extend("force", _opts, {
-                    border = _border,
-                }))
-            end
-
-            vim.keymap.set("n", "K", bordered_hover, {})
+            vim.keymap.set("n", "K", function()
+                require("hover").open()
+            end, { desc = "Open hover" })
             vim.keymap.set("n", "gD", vim.lsp.buf.definition, {})
             vim.keymap.set("n", "gd", vim.lsp.buf.declaration, {})
             vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
