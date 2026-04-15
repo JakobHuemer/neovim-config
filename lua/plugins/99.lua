@@ -21,6 +21,8 @@ return {
                     print_on_error = true,
                 },
 
+                model = "nvidia/moonshotai/kimi-k2-thinking",
+
                 --- Completions: #rules and @files in the prompt buffer
                 completion = {
                     -- I am going to disable these until i understand the
@@ -84,8 +86,12 @@ return {
             end)
 
             --- if you have a request you dont want to make any changes, just cancel it
-            vim.keymap.set("v", "<leader>9s", function()
+            vim.keymap.set("v", "<leader>9x", function()
                 _99.stop_all_requests()
+            end)
+
+            vim.keymap.set("n", "<leader>9s", function()
+                _99.search()
             end)
         end,
     },
