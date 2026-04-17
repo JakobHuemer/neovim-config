@@ -86,7 +86,7 @@ return {
             end)
 
             --- if you have a request you dont want to make any changes, just cancel it
-            vim.keymap.set("v", "<leader>9x", function()
+            vim.keymap.set("n", "<leader>9x", function()
                 _99.stop_all_requests()
             end)
 
