@@ -93,6 +93,16 @@ return {
             vim.keymap.set("n", "<leader>9s", function()
                 _99.search()
             end)
+
+            -- Select AI model via telescope
+            vim.keymap.set("n", "<leader>9m", function()
+                require("99.extensions.telescope").select_model()
+            end)
+
+            -- Select AI provider via telescope
+            vim.keymap.set("n", "<leader>9p", function()
+                require("99.extensions.telescope").select_provider()
+            end)
         end,
     },
 }

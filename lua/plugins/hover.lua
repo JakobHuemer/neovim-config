@@ -7,7 +7,9 @@ return {
                 "hover.providers.lsp",
                 "hover.providers.dap",
                 "hover.providers.man",
-                "hover.providers.dictionary",
+                -- "hover.providers.gh",
+                -- "hover.providers.highlight",
+                -- "hover.providers.dictionary",
             },
             preview_opts = {
                 border = "rounded",
@@ -17,3 +19,4 @@ return {
         })
     end,
 }
+
