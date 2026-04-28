@@ -36,7 +36,7 @@ return {
         },
         keys = {
             {
-                "<leader>e",
+                "<leader>n",
                 function()
                     require("neo-tree.command").execute({
                         toggle = true,
@@ -44,7 +44,7 @@ return {
                         position = "right",
                     })
                 end,
-                desc = "Buffers (root dir)",
+                desc = "Neo-tree (root dir)",
             },
         },
     },
