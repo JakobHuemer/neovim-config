@@ -69,4 +69,12 @@ vim.keymap.set("n", "<C-e>", function()
 vim.keymap.set("n", "<leader>,", function() require("harpoon"):list():prev() end, { desc = "Previous harpoon" })
 vim.keymap.set("n", "<leader>.", function() require("harpoon"):list():next() end, { desc = "Next harpoon" })
 
+-- Godot
+vim.keymap.set("n", "<leader>Gr", function()
+        vim.system({ "godot-mono", "--path", vim.fn.getcwd() })
+    end, { desc = "Run Godot project" })
+vim.keymap.set("n", "<leader>Ge", function()
+        vim.system({ "godot-mono", "-e", "--path", vim.fn.getcwd() })
+    end, { desc = "Open Godot editor" })
+
 --
