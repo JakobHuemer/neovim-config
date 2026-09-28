@@ -43,6 +43,7 @@ return {
                     stop_after_first = true,
                 },
                 nix = { "alejandra" },
+                go = { "goimports", lsp_format = "fallback" },
                 -- setup c/c++ formatters
                 c = { "clang-format" },
                 cpp = { "clang-format" },
