@@ -103,7 +103,11 @@ return {
                     filetypes = { "vue" },
                 },
                 emmet_language_server = {},
-                gopls = {},
+                gopls = {
+                    on_init = function(client)
+                        client.server_capabilities.inlayHintProvider = nil
+                    end,
+                },
                 nixd = {
                     cmd = { "nixd" },
                     flags = {
