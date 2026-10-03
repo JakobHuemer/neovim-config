@@ -21,14 +21,17 @@ vim.cmd([[set laststatus=3]])
 
 vim.opt.cc = "+0,+20,+40"
 vim.opt.textwidth = 80
+-- no auto-wrap while typing (breaks code/strings); gq still reflows
+vim.opt.formatoptions:remove("t")
 
--- Override ftplugin textwidth settings
+-- Override ftplugin textwidth/formatoptions settings
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
     callback = function()
         -- Defer to run after ftplugin
         vim.schedule(function()
             vim.opt_local.textwidth = 80
+            vim.opt_local.formatoptions:remove("t")
         end)
     end,
 })
