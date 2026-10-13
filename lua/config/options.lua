@@ -26,14 +26,22 @@ vim.opt.textwidth = 80
 -- no auto-wrap while typing (breaks code/strings); gq still reflows
 vim.opt.formatoptions:remove("t")
 
+-- prose filetypes: auto-wrap while typing is wanted there
+local prose = { markdown = true, text = true, typst = true, gitcommit = true, tex = true }
+
 -- Override ftplugin textwidth/formatoptions settings
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "*",
     callback = function()
+        local ft = vim.bo.filetype
         -- Defer to run after ftplugin
         vim.schedule(function()
             vim.opt_local.textwidth = 80
-            vim.opt_local.formatoptions:remove("t")
+            if prose[ft] then
+                vim.opt_local.formatoptions:append("t")
+            else
+                vim.opt_local.formatoptions:remove("t")
+            end
         end)
     end,
 })
