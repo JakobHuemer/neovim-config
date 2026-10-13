@@ -19,6 +19,8 @@ vim.cmd("set indentkeys-=0]}")  -- no re-indent on closing brace/bracket
 -- make statusline global
 vim.cmd([[set laststatus=3]])
 
+vim.opt.showmode = false
+
 vim.opt.cc = "+0,+20,+40"
 vim.opt.textwidth = 80
 -- no auto-wrap while typing (breaks code/strings); gq still reflows
