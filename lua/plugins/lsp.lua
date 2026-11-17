@@ -107,6 +107,13 @@ return {
                     on_init = function(client)
                         client.server_capabilities.inlayHintProvider = nil
                     end,
+                    settings = {
+                        gopls = {
+                            buildFlags = {
+                                "-tags=dev",
+                            },
+                        },
+                    },
                 },
                 nixd = {
                     cmd = { "nixd" },
